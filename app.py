@@ -275,8 +275,8 @@ def main():
                 f"""
                 <div class="css-card">
                 <span class="card-tag">Question {i + 1}</span>
-                    <p style="font-size: 12px; font-color: #000000;">{qa_pair['question']}</p>
-                    <p style="font-size: 12px; font-color: #000000;">{qa_pair['answer']}</p>
+                    <p style="font-size: 12px; color: #000000;">{qa_pair['question']}</p>
+                    <p style="font-size: 12px; color: #000000;">{qa_pair['answer']}</p>
                 </div>
                 """,
                 unsafe_allow_html=True,
