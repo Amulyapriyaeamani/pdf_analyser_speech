@@ -4,6 +4,7 @@ import random
 import itertools
 import streamlit as st
 from gtts import gTTS
+from googletrans import Translator
 from io import StringIO
 from langchain.vectorstores import FAISS
 from langchain.chains import RetrievalQA
@@ -18,6 +19,7 @@ from langchain.embeddings import HuggingFaceEmbeddings
 
 
 st.set_page_config(page_title="PDF Analyzer",page_icon=':shark:')
+
 
 @st.cache_data
 def load_docs(files):
@@ -101,9 +103,11 @@ def generate_eval(text, N, chunk):
 
 
 # ...
-def convert_text_to_speech(text):
+def convert_text_to_speech(input_language, output_language, text):
     if text:
-        tts = gTTS(text)
+        translation = translator.translate(text, src=input_language, dest=output_language)
+        trans_text = translation.text
+        tts = gTTS(trans_text, lang=output_language, tld=tld, slow=False)
         tts.save("output.mp3")
         os.system("start output.mp3")
 
@@ -285,14 +289,31 @@ def main():
             # <h4 style="font-size: 14px;">Question {i + 1}:</h4>
             # <h4 style="font-size: 14px;">Answer {i + 1}:</h4>
         st.write("Ready to answer questions.")
-
+        translator = Translator()
         # Question and answering
         user_question = st.text_input("Enter your question:")
         if user_question:
             answer = qa.run(user_question)
             st.write("Answer:", answer)
+            input_language = "en"
+            out_lang = st.selectbox(
+                "Select your output language",
+                ("English", "Hindi", "Bengali", "korean", "Chinese", "Japanese"),
+            )
+            if out_lang == "English":
+                output_language = "en"
+            elif out_lang == "Hindi":
+                output_language = "hi"
+            elif out_lang == "Bengali":
+                output_language = "bn"
+            elif out_lang == "korean":
+                output_language = "ko"
+            elif out_lang == "Chinese":
+                output_language = "zh-cn"
+            elif out_lang == "Japanese":
+                output_language = "ja"
             if st.button("Convert to Speech"):
-                convert_text_to_speech(answer)
+                convert_text_to_speech(input_language, output_language,answer)
                 st.success("Speech generated successfully! Click the link below to listen.")
                 st.audio("output.mp3")
 
