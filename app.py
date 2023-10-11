@@ -108,6 +108,7 @@ def convert_text_to_speech(input_language, output_language, text):
         translator = Translator()
         translation = translator.translate(text, src=input_language, dest=output_language)
         trans_text = translation.text
+        tld = "com"
         tts = gTTS(trans_text, lang=output_language, tld=tld, slow=False)
         tts.save("output.mp3")
         os.system("start output.mp3")
