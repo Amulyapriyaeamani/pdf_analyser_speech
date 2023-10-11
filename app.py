@@ -105,6 +105,7 @@ def generate_eval(text, N, chunk):
 # ...
 def convert_text_to_speech(input_language, output_language, text):
     if text:
+        translator = Translator()
         translation = translator.translate(text, src=input_language, dest=output_language)
         trans_text = translation.text
         tts = gTTS(trans_text, lang=output_language, tld=tld, slow=False)
@@ -289,7 +290,7 @@ def main():
             # <h4 style="font-size: 14px;">Question {i + 1}:</h4>
             # <h4 style="font-size: 14px;">Answer {i + 1}:</h4>
         st.write("Ready to answer questions.")
-        translator = Translator()
+        
         # Question and answering
         user_question = st.text_input("Enter your question:")
         if user_question:
