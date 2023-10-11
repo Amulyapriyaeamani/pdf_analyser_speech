@@ -141,6 +141,7 @@ def main():
                 background-color: #f8f9fa;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 margin-bottom: 10px;
+                color: #000000;
                 font-family: "IBM Plex Sans", sans-serif;
             }
             
