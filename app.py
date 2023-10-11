@@ -180,7 +180,7 @@ def main():
         """,
         unsafe_allow_html=True,
     )
-    st.sidebar.image("PdfBot.png")
+    st.sidebar.image("PdfBot1.png")
 
 
    
